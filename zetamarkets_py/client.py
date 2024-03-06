@@ -152,6 +152,7 @@ class Client:
         exchange = await Exchange.load(
             network=network,
             connection=connection,
+            wallet= wallet,
             assets=assets,
         )
         if wallet is None:

@@ -78,7 +78,7 @@ class Exchange:
             Exception: If the state or pricing is not found at their respective addresses.
         """
         program_id = constants.ZETA_PID[network]
-        provider = Provider(connection, Wallet.dummy())
+        provider = Provider(connection, wallet)
         program = Program(idl, program_id, provider)
         _event_parser = EventParser(program_id, program.coder)
 
