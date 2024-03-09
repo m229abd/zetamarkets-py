@@ -59,6 +59,7 @@ class Exchange:
         cls,
         network: Network,
         connection: AsyncClient,
+        wallet,
         assets: list[Asset] = Asset.all(),
         log_level: int = logging.CRITICAL,
     ) -> "Exchange":
