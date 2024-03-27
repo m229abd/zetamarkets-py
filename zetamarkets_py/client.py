@@ -880,7 +880,7 @@ class Client:
         size: float,
         side: Side,
         order_opts: Optional[OrderOptions] = None,
-        tif_buffer: int = 0,
+        tif_buffer: int = 0, reduce_only = False
     ) -> Instruction:
         """
         Build a PlaceOrder instruction.
@@ -931,7 +931,7 @@ class Client:
                 ),
                 "side": side.to_program_type(),
                 "order_type": order_opts.order_type.to_program_type(),
-                "reduce_only": False,
+                "reduce_only": reduce_only,
                 "client_order_id": order_opts.client_order_id,
                 "tif_offset": tif_offset,
                 "tag": order_opts.tag,
@@ -1108,7 +1108,7 @@ class Client:
         pre_instructions: Optional[list[Instruction]] = None,
         post_instructions: Optional[list[Instruction]] = None,
         tif_buffer: int = 0,
-        priority_fee: int = 0,
+        priority_fee: int = 0, reduce_only = False
     ):
         """
         Place orders for a market.
@@ -1139,7 +1139,7 @@ class Client:
         if pre_instructions is not None:
             ixs.extend(pre_instructions)
         for order in orders:
-            ixs.append(self._place_order_ix(asset, order.price, order.size, order.side, order.order_opts, tif_buffer))
+            ixs.append(self._place_order_ix(asset, order.price, order.size, order.side, order.order_opts, tif_buffer, reduce_only))
         if post_instructions is not None:
             ixs.extend(post_instructions)
         self._logger.info(f"Placing {len(orders)} orders for {asset}")
